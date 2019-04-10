@@ -18,10 +18,10 @@ function addUser() {
 function* workerSaga() {
   try {
     const response = yield call(addUser);
-    const dog = response.data.message;
+    const respond = response.data.message;
 
-    // dispatch a success action to the store with the new dog
-    yield put({ type: "API_CALL_SUCCESS", dog });
+    // dispatch a success action to the store with the new respond
+    yield put({ type: "API_CALL_SUCCESS", respond });
   
   } catch (error) {
     // dispatch a failure action to the store with the error

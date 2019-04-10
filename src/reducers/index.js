@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import { reducer as formReducer ,values} from 'redux-form';
 import axios from 'axios';
 // action types
@@ -12,16 +12,17 @@ const initialState = {};
 export function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_USER:
-    axios.post(`https://secure-refuge-14993.herokuapp.com/add_user?username=${values.username}&password=${values.password}&role=${values.role}`)
-    .then((res)=>{
-      //on success
-      console.log('response',res);
-      
-  }).catch((error)=>{
-      //on error
-      console.log(error);
-  });
-    
+    // axios.post(`https://secure-refuge-14993.herokuapp.com/add_user?username=${values.username}&password=${values.password}&role=${values.role}`)
+    // .then((res)=>{
+    //       //on success
+    //       console.log('response',res);
+          
+    //   }).catch((error)=>{
+    //       //on error
+    //       console.log(error);
+    //   });
+    console.log('inside add user');
+      break;
       // return { ...state, fetching: true, error: null };
 
     case API_CALL_SUCCESS:
@@ -33,7 +34,8 @@ export function reducer(state = initialState, action) {
   }
 }
 const reducers = {
+
   // ... your other reducers here ...
   form: formReducer     // <---- Mounted at 'form'
 }
-export const rootReducer = combineReducers(reducer,reducers)
+export const rootReducer = combineReducers({reducer,...reducers})

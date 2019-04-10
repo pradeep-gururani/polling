@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import AddUser from './components/Adduser';
-
+import  './reducers/index';
 import { connect } from "react-redux";
 
 class App extends Component {
+  
   render() {
+    const {handleSubmit} = this.props;
     const { fetching, dog, onRequestDog, error } = this.props;    
     return (
       <div className="App">      
@@ -15,6 +16,7 @@ class App extends Component {
     );
   }
 }
+
 
 const mapStateToProps = state => {
   return {
@@ -26,7 +28,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onRequestDog: () => dispatch({ type: "ADD_USER" })
+    // handleSubmit: () => dispatch({ type: "ADD_USER" })
   };
 };
 

@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
 
-import { reducer } from "./reducers/index";
+import { rootReducer } from "./reducers/index";
 import { watcherSaga } from "./sagas/sagas";
 
 // create the saga middleware
@@ -20,7 +20,7 @@ const reduxDevTools =
 
 // create a redux store with our reducer above and middleware
 let store = createStore(
-  reducer,
+  rootReducer,
   compose(applyMiddleware(sagaMiddleware), reduxDevTools)
 );
 

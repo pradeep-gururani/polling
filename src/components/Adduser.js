@@ -1,10 +1,13 @@
 import React from 'react';
-import {Field, reduxForm} from 'redux-form';
-
+import {Field, reduxForm, values, submit} from 'redux-form'; 
+import {ADD_USER} from '../reducers/index';
+import {dispatch} from 'redux';
 const AddUser= props => {
-  const { handleSubmit, pristine, submitting } = props
+  console.log('=========>',props);
+  // console.log('values',values);
+  const { handleSubmit, pristine,values, submitting ,dispatch} = props
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(submit)}>
       <div>
         <label>Username</label>
         <div>
@@ -49,6 +52,5 @@ const AddUser= props => {
 }
 
   export default reduxForm({
-    form: 'syncValidation', // a unique identifier for this form
-// <--- warning function given to redux-form
+    form: 'syncValidation', 
   })(AddUser)
