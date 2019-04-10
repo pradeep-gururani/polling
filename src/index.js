@@ -1,32 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './components/App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
 import * as serviceWorker from './serviceWorker';
-import createSagaMiddleware from 'redux-saga';
-import { createStore, applyMiddleware } from 'redux';
-// import { Router, Route, browserHistory } from 'react-router';
-import reducer from './reducers/index'
-import { Provider } from 'react-redux';
-import { logger } from 'redux-logger';
-import rootSaga from './sagas';
 
+import { createStore, applyMiddleware, compose } from "redux";
+import createSagaMiddleware from "redux-saga";
+import { Provider } from "react-redux";
+
+import { reducer } from "./reducers/index";
+import { watcherSaga } from "./sagas/sagas";
+
+// create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
-   reducer,
-   applyMiddleware(sagaMiddleware, logger),
+// dev tools middleware
+const reduxDevTools =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+// create a redux store with our reducer above and middleware
+let store = createStore(
+  reducer,
+  compose(applyMiddleware(sagaMiddleware), reduxDevTools)
 );
-sagaMiddleware.run(rootSaga);
+
+// run the saga
+sagaMiddleware.run(watcherSaga);
 
 ReactDOM.render(
-                <Provider store={store}>
-                    {/* <Router> */}
-                        {/* <Route> */}
-                            <App />
-                        {/* </Route> */}
-                    {/* </Router>                     */}
-                </Provider>
-                , document.getElementById('root'));
-
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+// registerServiceWorker();
 serviceWorker.unregister();
