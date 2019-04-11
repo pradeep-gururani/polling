@@ -1,28 +1,44 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import AddUser from './components/Adduser';
+import  './reducers/index';
+import { connect } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import "./App.css";
+import { values } from "redux-form";
+
+// import axios from 'axios';
 
 class App extends Component {
+  
+  submit(values,dispatch){
+    console.log('--vasl',values);    
+  }
+
   render() {
+    // console.log('data', this.props);
+    const { addUser } = this.props;      
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="App">      
+        <AddUser onSubmit = {this.submit} />
+        <ToastContainer />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // addUser: (data) => dispatch(ADD_USER(data)),
+
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
